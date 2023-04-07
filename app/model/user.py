@@ -1,4 +1,5 @@
-from sqlalchemy import Column, Enum, Integer, TEXT
+from sqlalchemy import Column, Enum, Integer, TEXT, ForeignKey
+from sqlalchemy.orm import relationship
 from app.model import Base;
 
 class Users(Base):
@@ -11,7 +12,8 @@ class Users(Base):
     gender        = Column(Enum('Nam', 'Nữ','Khác'))
     address       = Column(TEXT)
     avatar        = Column(TEXT)
-    accountId     = Column(TEXT)
+    accountId     = Column(ForeignKey("account.id"))
+    account       = relationship("Account", back_populates="user")
 
     def __init__(seft,  firstName, lassName, phone, age, gender,address , avatar, accountId):
         seft.firstName = firstName

@@ -113,8 +113,7 @@ CREATE TABLE `account` (
   `id` int(11) NOT NULL,
   `userName` TEXT DEFAULT NULL,
   `passWord` TEXT DEFAULT NULL,
-  `roleId` int(11) DEFAULT NULL,
-  `userId` int(11) DEFAULT NULL
+  `roleId` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -211,11 +210,11 @@ ALTER TABLE `role`
 -- Constraints for table `account`
 --
 ALTER TABLE `account`
-  ADD CONSTRAINT `account_ibfk_1` FOREIGN KEY (`roleId`) REFERENCES `role` (`id`),
-  ADD CONSTRAINT `account_ibfk_2` FOREIGN KEY (`userId`) REFERENCES `user` (`id`);
+  ADD CONSTRAINT `account_ibfk_1` FOREIGN KEY (`roleId`) REFERENCES `role` (`id`);
 --
 
-
+ALTER TABLE `user`
+  ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`accountId`) REFERENCES `account` (`id`);
 
 
 -- Constraints for table `listcleanerservice`

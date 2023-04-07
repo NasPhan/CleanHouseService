@@ -1,5 +1,6 @@
 from sqlalchemy import Column, Integer,TEXT, ForeignKey
 from app.model import Base;
+from sqlalchemy.orm import relationship
 from app.model.role import Role
 
 
@@ -9,13 +10,13 @@ class Account(Base):
     userName  = Column(TEXT)
     passWord  = Column(TEXT)
     roleId    = Column(ForeignKey("role.id"))
-    userId    = Column(ForeignKey("user.id"))
+    role      = relationship("Role", back_populates="account")
+    user      = relationship("Users", back_populates="account")
 
-    def __init__(seft, userName, passWord, roleId, userId):
+    def __init__(seft, userName, passWord, roleId):
         seft.userName  = userName
         seft.passWord  = passWord
         seft.roleId    = roleId
-        seft.userId    = userId
     
     def to_json(seft):
         return {

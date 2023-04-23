@@ -37,3 +37,22 @@ def update_user():
         return response
     except ValueError as e:
         return jsonify({'message': str(e)}), 404
+    
+@api_user.route('/user/get/id', methods = ['GET'])
+def get_users(id):
+    users_db = session.query(Users).all()
+
+    users_list = []
+    for user in users_db:
+        user_dict = {
+            'firstName' : user.firstName,
+            'lastName'  : user.lastName,
+            'phone'     : user.phone,
+            'age'       : user.age,
+            'gender'    : user.gender,
+            'address'   : user.address,
+            'avatar'    : user.avatar
+        }
+        users_list.append(user_dict)
+    return jsonify(users_list)
+
